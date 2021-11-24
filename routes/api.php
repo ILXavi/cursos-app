@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\UsuariosController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
@@ -18,12 +19,12 @@ use Illuminate\Support\Facades\Route;
    // return $request->user();
 //});
 
-Route::prefix('personas')->group(function(){
+Route::prefix('usuarios')->group(function(){
 
-    Route::put('/crear',[PersonasController::class,'crear']);
-    Route::delete('/desactivar/{id}',[PersonasController::class,'borrar']);
-    Route::post('/editar/{id}',[PersonasController::class,'editar']);
-    Route::get('/listar',[PersonasController::class,'listar']);
-    Route::get('/ver/{id}',[PersonasController::class,'ver']);
+    Route::put('/crear',[UsuariosController::class,'crear']);
+    Route::post('/desactivar/{id}',[UsuariosController::class,'desactivar']);
+    Route::post('/editar/{id}',[UsuariosController::class,'editar']);
+    Route::get('/listar',[UsuariosController::class,'listar']);
+    Route::get('/ver/{id}',[UsuariosController::class,'ver']);
     
 });

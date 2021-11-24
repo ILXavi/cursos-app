@@ -96,10 +96,11 @@ class UsuariosController extends Controller
             if($usuario && $usuario->activado==1){
 
                     $usuario->activado=0;
+                    $usuario->save();
                     //$usuario->delete();
                     $respuesta['msg'] = "Usuario desactivado";
             }else{
-                $respuesta["msg"] = "Usuario no encontrado";
+                $respuesta["msg"] = "Usuario no encontrad";
                 $respuesta["status"] = 0;
             }
         }catch(\Exception $e){
