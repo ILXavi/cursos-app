@@ -19,7 +19,7 @@ class UsuariosController extends Controller
         $datos = json_decode($datos); //Se interpreta como objeto. Se puede pasar un parámetro para que en su lugar lo devuelva como array.
 
         //VALIDAR LOS DATOS
-
+        
         $usuario = new Usuario();
 
         $usuario->nombre = $datos->nombre;
