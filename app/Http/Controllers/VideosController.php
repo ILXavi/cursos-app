@@ -26,6 +26,8 @@ class VideosController extends Controller
         $video->foto = $datos->foto;
         $video->enlace = $datos->enlace;
         $video->visto = 0;
+        $video->curso_id = $datos->curso_id;
+
         
 
         //Escribir en la base de datos
