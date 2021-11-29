@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Curso;
+use Illuminate\Support\Facades\DB;
 
 class CursosController extends Controller
 {
@@ -16,7 +17,7 @@ class CursosController extends Controller
 
         //VALIDAR EL JSON
 
-        $datos = json_decode($datos); //Se interpreta como objeto. Se puede pasar un parámetro para que en su lugar lo devuelva como array.
+        $datos = json_decode($datos); 
 
         //VALIDAR LOS DATOS
         
@@ -39,11 +40,25 @@ class CursosController extends Controller
         return response()->json($respuesta);
     }
 
-    public function listar(){
+    public function listar(Request $req){
 
         $respuesta = ["status" => 1, "msg" => ""];
         try{
-            $cursos = Curso::all();
+
+            if($req -> has('titulo')){
+
+               $cursos = Curso::select(['id','titulo','foto'])                        
+                        ->withCount('videos as cantidad_videos')    
+                        ->where('cursos.titulo','like','%'. $req -> input('titulo').'%')
+                        ->get();
+                
+            }else{
+                $cursos = Curso::select(['id','titulo','foto'])
+                        ->withCount('videos as cantidad_videos')    
+                        ->get();
+               
+            }
+            
             $respuesta['datos'] = $cursos;
         }catch(\Exception $e){
             $respuesta['status'] = 0;
@@ -52,4 +67,6 @@ class CursosController extends Controller
         return response()->json($respuesta);
     }
 
+
+    
 }

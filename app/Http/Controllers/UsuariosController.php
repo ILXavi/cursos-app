@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Usuario;
+use App\Models\Curso;
 
 class UsuariosController extends Controller
 {
@@ -100,7 +101,7 @@ class UsuariosController extends Controller
                     //$usuario->delete();
                     $respuesta['msg'] = "Usuario desactivado";
             }else{
-                $respuesta["msg"] = "Usuario no encontrad";
+                $respuesta["msg"] = "Usuario no encontrado";
                 $respuesta["status"] = 0;
             }
         }catch(\Exception $e){
@@ -142,4 +143,43 @@ class UsuariosController extends Controller
 
         return response()->json($respuesta);
     }
+
+    public function comprar_curso($usuario_id, $curso_id){
+        $respuesta = ["status" => 1, "msg" => ""];
+
+        $usuario = Usuario::find($usuario_id);
+        $curso = Curso::find($curso_id);
+       
+
+        if($usuario && $curso){
+            $usuario->cursos()->attach($curso);
+            $respuesta['msg'] = "Se ha matriculado al usuario ".$usuario->nombre. " al curso ".$curso->titulo;
+        }else{
+            $respuesta['status'] = 0;
+            $respuesta['msg'] = "Usuario no encontrado: ".$e->getMessage();
+        }
+        return response()->json($respuesta);
+
+    }
+
+    public function listar_comprados($usuario_id){
+
+        $respuesta = ["status" => 1, "msg" => ""];
+
+        $usuario = Usuario::find($usuario_id);
+        
+
+        if($usuario){
+              
+            $usuario->cursos;
+            $respuesta['usuario'] = $usuario;
+        }else{
+            $respuesta['status'] = 0;
+            $respuesta['msg'] = "Usuario no encontrado: ".$e->getMessage();
+        }
+        return response()->json($respuesta);
+
+    }
+
+    
 }
