@@ -156,7 +156,7 @@ class UsuariosController extends Controller
             $respuesta['msg'] = "Se ha matriculado al usuario ".$usuario->nombre. " al curso ".$curso->titulo;
         }else{
             $respuesta['status'] = 0;
-            $respuesta['msg'] = "Usuario no encontrado: ".$e->getMessage();
+            $respuesta['msg'] = "Usuario no encontrado: ";
         }
         return response()->json($respuesta);
 
@@ -175,7 +175,7 @@ class UsuariosController extends Controller
             $respuesta['usuario'] = $usuario;
         }else{
             $respuesta['status'] = 0;
-            $respuesta['msg'] = "Usuario no encontrado: ".$e->getMessage();
+            $respuesta['msg'] = "Usuario no encontrado: ";
         }
         return response()->json($respuesta);
 
