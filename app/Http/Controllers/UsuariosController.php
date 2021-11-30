@@ -34,8 +34,13 @@ class UsuariosController extends Controller
 
         //Escribir en la base de datos
         try{
-            $usuario->save();
-            $respuesta['msg'] = "Persona guardada con id ".$usuario->id;
+            if(Usuario::where('email', '=', $datos->email)->first()){
+                $respuesta['msg'] = "El email usado ya se encuentra registrado, pruebe con otro";
+            }else{
+                $usuario->save();
+                $respuesta['msg'] = "Persona guardada con id ".$usuario->id;
+            }
+            
         }catch(\Exception $e){
             $respuesta['status'] = 0;
             $respuesta['msg'] = "Se ha producido un error: ".$e->getMessage();
